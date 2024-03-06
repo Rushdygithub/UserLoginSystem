@@ -1,7 +1,7 @@
 const express = require('express')
 const app     = express()
 const router  = express.Router()
-const {userRegistration} = require('../controllers/logregistration')
+const {userRegistration,login} = require('../controllers/logregistration')
 const dotenv   =require('dotenv')
 dotenv.config()
 const bodyParser = require('body-parser')
@@ -20,7 +20,7 @@ con = mysql.createConnection({
     database: 'userregistrationdb'
 });
 
-router.post('/user', (req,res)=> {
+router.post('/registration', (req,res)=> {
     
     let {id,user,email,password} = req.body   
     //input validation (to ensure the security)
@@ -50,10 +50,12 @@ router.post('/user', (req,res)=> {
     }
     
     userRegistration(req,res)
-    // console.log('Its work')
-  
+
 })
 
+router.post('/login', (req,res)=> {
+    login(req,res)
+})
 
 //server connection callback fucntion
 app.listen(8000, (error)=> {
@@ -68,6 +70,6 @@ con.connect(function(err) {
 });
 
 
-app.use('/login/registration', router)
+app.use('/user', router)
 
 module.exports = con

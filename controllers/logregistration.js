@@ -38,7 +38,6 @@ const userRegistration = (req,res) => {
                             return apiResponse(req,res,false,'Unsuccess',401,'your email address is already in, try again')     
                         }
                     })
-
                             let passwords = await hashPassword(password)
                   
                             con.query(mysql2,[id,user,email,passwords], (error)=> {
@@ -52,7 +51,12 @@ const userRegistration = (req,res) => {
     }
 }
 
+const login = (req,res) => {
+     
+}
+
 
 module.exports = {
-    userRegistration
+    userRegistration,
+    login
 }
