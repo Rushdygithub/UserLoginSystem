@@ -5,6 +5,7 @@ This is a user login and registration authentication system. The tech stack is N
 1.you should install node js in your computer 
 2.Then clone the project from github server
 3.After clone the project run this command (npm install) - this will install all dependencies for node js
+4. make sure to create database and table : (note:- you need to use only one database for the registration part that's it) (DB:userregistrationdb, table:userregistrationTable with four columns which is id,user,email and password- you can use any name for this part) 
 
 
 #when you going to build user registration and login system you have to consider about these poits. (to authonticat the system)
