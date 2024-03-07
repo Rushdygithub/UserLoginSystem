@@ -17,6 +17,7 @@ Check for valid email formats, strong passwords, and any other relevant input co
 Password Security: 
 Implement password hashing using a strong hashing algorithm (e.g., bcrypt). (Ok)
 Encourage users to use strong passwords and consider enforcing password complexity rules. (Ok)
+apply a compare password logic (Ok)
 
 Unique Usernames and Emails:
 Ensure that usernames and email addresses are unique to avoid duplicate accounts.(Ok)

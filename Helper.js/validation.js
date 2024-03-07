@@ -18,8 +18,15 @@ const hashPassword = async (password) => {
     return passwords
 }
 
+const compareHashPassword = async (pass,hashed) => {
+    let compare = await bcrypt.compare(pass,hashed)
+    console.log(compare)
+    return compare
+}
+ 
 module.exports = {
     emailExpression,
     passwordExpression,
-    hashPassword
+    hashPassword,
+    compareHashPassword
 }

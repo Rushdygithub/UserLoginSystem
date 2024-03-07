@@ -22,7 +22,7 @@ con = mysql.createConnection({
 
 router.post('/registration', (req,res)=> {
     
-    let {id,user,email,password} = req.body   
+    let {id,user,email,password,conform} = req.body   
     //input validation (to ensure the security)
     if(!id)
     {
@@ -48,12 +48,32 @@ router.post('/registration', (req,res)=> {
     {
         return apiResponse(req,res,false,'Unsuccess',401,'Password is not strong')
     }
-    
+    if(!conform)
+    {
+        return apiResponse(req,res,false,'Unsuccess',401,'User conform password is required')
+    } 
+    if(password !== conform)
+    {
+        return apiResponse(req,res,false,'Unsuccess',401,'Your password and conform password dismatch, try again')
+    }
+
     userRegistration(req,res)
 
 })
 
 router.post('/login', (req,res)=> {
+
+    let {email,password} = req.body
+
+    if(!email)
+    {
+        return apiResponse(req,res,false,'Unsuccess',401,'User email is required')
+    }
+    if(!password)
+    {
+        return apiResponse(req,res,false,'Unsuccess',401,'User password is required')
+    }
+
     login(req,res)
 })
 
