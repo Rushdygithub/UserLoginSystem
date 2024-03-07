@@ -76,21 +76,17 @@ const login = (req,res) => {
                             
                             let hashedPasswordFromDB = result[0].password;
                             // let passwordCompare = await bcrypt.compare(password,hashedPasswordFromDB)
+                            //Note compare password issue  (length of the password) - good job
                             let compare = await compareHashPassword(password,hashedPasswordFromDB)
-                            console.log(hashedPasswordFromDB)
-                            console.log(compare)
-                           
-                            // return apiResponse(req,res,true,'Success',200,passwordCompare)
-                            if (compare) {
-                                return apiResponse(req, res, true, 'Success', 200, 'Password matched');
-                            } else {
-                                return apiResponse(req, res, false, 'Unsuccess', 401, 'Password mismatch');
+                            
+                            if (compare)
+                            {
+                                return apiResponse(req,res,true,'Success',200,'User loging is success')
                             }
+
                         } else {
                             return apiResponse(req,res,false,'Unsuccess',401,'NotOk')
                         }
-                       
-
                 })
 
             } else {
