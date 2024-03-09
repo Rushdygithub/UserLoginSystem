@@ -1,10 +1,8 @@
 const bcrypt = require('bcrypt')
 
 const emailExpression = (email) => {
-
     let regex =  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
     return regex.test(email)
-
 }
 
 const passwordExpression = (password) => {
@@ -20,7 +18,6 @@ const hashPassword = async (password) => {
 
 const compareHashPassword = async (pass,hashed) => {
     let compare = await bcrypt.compare(pass,hashed)
-    console.log(compare)
     return compare
 }
  

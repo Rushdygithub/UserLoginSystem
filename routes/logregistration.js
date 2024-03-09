@@ -8,9 +8,12 @@ const bodyParser = require('body-parser')
 const {apiResponse} = require('../Helper.js/apiHelper')
 const {emailExpression,passwordExpression,hashPassword} = require('../Helper.js/validation')
 const mysql = require('mysql')
+const {authonticationMiddleware,jsonwebtokenGenarate,verifyToken, test} = require('../customMiddleware/middleware')
+// const {jsonwebtokenGenarate} = require('../customMiddleware/middleware')
 
 
 app.use(bodyParser.json())
+// app.use(authonticationMiddleware)
 
 //database 
 con = mysql.createConnection({
@@ -61,10 +64,10 @@ router.post('/registration', (req,res)=> {
 
 })
 
-router.post('/login', (req,res)=> {
+router.post('/login', authonticationMiddleware, (req,res)=> {
 
     let {email,password} = req.body
-
+    
     if(!email)
     {
         return apiResponse(req,res,false,'Unsuccess',401,'User email is required')
@@ -74,7 +77,21 @@ router.post('/login', (req,res)=> {
         return apiResponse(req,res,false,'Unsuccess',401,'User password is required')
     }
 
+    // jsonwebtokenGenarate(req,res,email)
+    // verifyToken(req,res,email)
+    // jsonwebtokenGenarate(req,res,email)
+    // verifyToken()
     login(req,res)
+
+})
+
+//This is the test route - (you can test something)
+router.get('/token', (req,res)=> {
+    let email = 'rushdy56@gmail.com'
+    jsonwebtokenGenarate(req,res,email)
+    verifyToken(req,res)
+    // test()
+
 })
 
 //server connection callback fucntion
@@ -89,7 +106,5 @@ con.connect(function(err) {
     // console.log("Connected!");
 });
 
-
 app.use('/user', router)
 
-module.exports = con
