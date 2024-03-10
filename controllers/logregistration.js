@@ -1,10 +1,6 @@
 const mysql = require('mysql')
-const {apiResponse} = require('../Helper.js/apiHelper')
+const {apiResponse, accessToken} = require('../Helper.js/apiHelper')
 const {hashPassword,compareHashPassword} = require('../Helper.js/validation')
-const bcrypt = require('bcrypt')
-const jwtToken = require('jsonwebtoken')
-const CircularJSON = require('circular-json');
-
 
 //need to optimized this program
 let con = mysql.createConnection({
@@ -83,21 +79,8 @@ const login = (req,res) => {
                                 return apiResponse(req,res,false,'Unsuccess',401,'Password is dismatch, try again')
                             } else {
 
-                            let secretKey = '96ed464c791f63bef28a172ee893113472dbb8e5c93879289cf34c4d3221fa8937cd4081136b6343d7679a92fd7a55397b88c8683cb53662b82a5d03108e6606'
-                            const accessToken = jwtToken.sign(CircularJSON.stringify(email), secretKey);
-                            console.log(accessToken)
-                            // let se = '96ed464c791f63bef28'
-                            const user = jwtToken.verify(accessToken, secretKey);
-                            console.log(user)
-                            if (user)
-                            {
-                                console.log('Token is verifaied')
-                            } else {
-                                console.log('Not verified')
-                            }
-
-                            
-                                return apiResponse(req,res,true,'register success',200,`Token: ${accessToken}`)
+                                accessToken(req,res,email)
+                                return apiResponse(req,res,true,'success',200,`Registerd success`)
                             }
                         } 
                 })
